@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: provider-user-ribbon
+
+server: 
+  servlet: 
+    context-path: /ribbon
+  port: 8091
+
+logging:
+  level:
+    com.young : debug
+
+eureka: 
+  client: 
+    serviceUrl:
+      defaultZone: http://user:123@127.0.0.1:10000/eureka/
+  instance:
+    prefer-ip-address: true # 在eureka页面显示ip
+    
+PROVIDER-USER: 
+  ribbin: 
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule # 给指定服务配置负载算法

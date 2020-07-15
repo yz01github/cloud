@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: eureka-server1
+  security: 
+#  开启安全配置，即需要密码查看eureka，不需要则设置为false,在spring2.0后无法使用
+#    basic:
+#      enable: false 
+    user: 
+      name: user
+      password: 123 
+server: 
+  port: 10001
+
+eureka: 
+  instance:
+    #    hostname: 127.0.0.1
+    #    这里是个坑，在自己电脑上部署高可用eureka时，如果使用127.0.0.1时，会出现Cannot execute request on any known server错误
+    #    原因详见 https://zhuanlan.zhihu.com/p/76582106
+    #    注意，设置的peer1，peer2，peer3，其实要在本机做一个映射，都映射到127.0.0.1，这样作用就一样了，但是hostname不一样，就不会报错了
+    #    windows下设置ip映射的办法，见https://www.cnblogs.com/fiberhome/p/6830795.html
+    hostname: peer1
+  client:
+#  在服务器启动时，Eureka Server会把自己当做一个客户端去注册Eureka,并且会去抓取信息
+#  但是它本身只是一个服务端 并不是客户端，这样就冲突了，所以会refuse，需要在application.properties加入以下两个配置：false时不注册
+#    register-with-eureka: faltrse
+#    fetch-registry: false
+    service-url: 
+      defaultZone: http://user:123@peer2:10002/eureka/,http://user:123@peer4:10004/eureka/
+
+
+  
